@@ -1,0 +1,13 @@
+CREATE TABLE reservas (
+    id_reserva INT PRIMARY KEY AUTO_INCREMENT,
+    nombre_cliente VARCHAR(50) NOT NULL,
+    fecha_reserva DATE NOT NULL,
+    id_lugar INT NOT NULL,
+    
+    UNIQUE KEY leer_reserva (id_lugar, fecha_reserva)
+);
+
+INSERT INTO reservas (nombre_cliente, fecha_reserva, id_lugar) VALUES
+('Cliente1', '2024-02-20', 1),
+('Cliente2', '2024-02-21', 2),
+('Cliente3', '2024-02-23', 1);
