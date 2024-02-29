@@ -1,0 +1,26 @@
+DELIMITER //
+
+CREATE FUNCTION RealizarReserva(
+    p_nombre_cliente VARCHAR(50),
+    p_fecha_reserva DATE,
+    p_id_lugar INT
+)
+RETURNS VARCHAR(255)
+BEGIN
+    DECLARE mensaje_respuesta VARCHAR(255);
+    
+    IF NOT EXISTS (
+        SELECT 1
+        FROM reservas
+        WHERE id_lugar = p_id_lugar AND fecha_reserva = p_fecha_reserva
+    ) THEN
+        INSERT INTO reservas (nombre_cliente, fecha_reserva, id_lugar)
+        VALUES (p_nombre_cliente, p_fecha_reserva, p_id_lugar);
+
+        SET mensaje_respuesta = 'Reserva realizada con éxito.';
+    ELSE
+        SET mensaje_respuesta = 'El lugar no está disponible para la fecha seleccionada.';
+    END IF;
+
+    RETURN mensaje_respuesta;
+END //
